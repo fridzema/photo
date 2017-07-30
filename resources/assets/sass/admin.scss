@@ -1,0 +1,66 @@
+@import "reset";
+@import "./pages/login";
+
+$backgroundColor: #e0e0e0;
+$selectionColor: #f0f2f1;
+
+body {
+	background: $backgroundColor;
+	font-family: Arial,Helvetica Neue,Helvetica,sans-serif;
+}
+
+ #photos {
+ 		position: relative;
+ 		top: 20px;
+ 		width: 1140px;
+ 		margin: 0 auto;
+    font-size: 0;
+ 		animation: fadein .2s;
+    -moz-animation: fadein .2s; /* Firefox */
+    -webkit-animation: fadein .2s; /* Safari and Chrome */
+    -o-animation: fadein .2s; /* Opera */
+        a {
+          font-size: 16px;
+          overflow: hidden;
+          display: inline-block;
+          margin-bottom: 8px;
+          width: calc(50% - 4px);
+          margin-right: 8px;
+
+          figure {
+            margin: 0;
+            overflow: hidden;
+
+            img {
+              border: none;
+              max-width: 100%;
+              height: auto;
+              display: block;
+              background: #ccc;
+              transition: transform .2s ease-in-out;
+
+              &:hover {
+                transform: scale(1.15);
+              }
+            }
+          }
+
+          &:nth-of-type(2n) {
+            margin-right: 0;
+          }
+        }
+
+        @media screen and (min-width: 50em) {
+          a {
+            width: calc(25% - 6px);
+          }
+
+          a:nth-of-type(2n) {
+            margin-right: 8px;
+          }
+
+          a:nth-of-type(4n) {
+            margin-right: 0;
+          }
+        }
+    }
