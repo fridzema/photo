@@ -3,14 +3,15 @@
       $path = "/var/www/html";
       require __DIR__.'/vendor/autoload.php';
 			(new \Dotenv\Dotenv(__DIR__, '.env'))->load();
-			$silent_output = false;
-
 			$path = "/var/www/html";
 			$repositoryName = "photo";
 			$repositoryUser = "fridzema";
 
-			function logMessage($message) {
-				return "echo '\033[1;32m" .$message. "\033[0m';\n";
+			function taskLog($message, $icon = null) {
+				$delimiter = "  ";
+				$icon = (isset($icon)) ? $icon . $delimiter : null;
+
+				return "echo '\033[1;32m" . $icon . $message. "\033[0m';\n";
 			}
   @endsetup
 
@@ -23,43 +24,41 @@
     migrate_seed
     optimize
     restart_services
+    congratulations
   @endmacro
 
   @task('clean_current_dir', ['on' => 'fridzema'])
-  	{{ logMessage("👋  Directory cleanup...") }}
+  	{{ taskLog("Directory cleanup...", "👋") }}
     cd {{ $path }};
     rm -rf *;
   @endtask
 
   @task('git', ['on' => 'fridzema'])
-  	{{ logMessage("⛓  Cloning the repository ".$repositoryUser."/".$repositoryName."...") }}
+  	{{ taskLog("Cloning the repository ".$repositoryUser."/".$repositoryName."...", "⛓") }}
     cd {{ $path }};
     git clone --depth 1 https://github.com/{{$repositoryUser}}/{{$repositoryName}}.git --quiet;
   @endtask
 
   @task('fix_permissions', ['on' => 'fridzema'])
-  	{{ logMessage("🔓  Fixing file permissions...") }}
-  	cd {{ $path }};
-    chmod 755 -R {{$repositoryName}};
-
-    cd {{ $path }}/{{$repositoryName}};
-    chmod -R o+w storage;
+  	{{ taskLog("Fixing file permissions...", "🔓") }}
+    chown -R :www-data  {{ $path }}/{{$repositoryName}};
+		chmod -R 755 {{ $path }}/{{$repositoryName}}/storage;
   @endtask
 
   @task('copy_env', ['on' => 'fridzema'])
-  	{{ logMessage("⚠️  Copy the env production file...") }}
+  	{{ taskLog("Copy the env production file...", "⚙️") }}
     cd {{ $path }}/{{$repositoryName}};
     cp .env.production .env;
   @endtask
 
 	@task('composer', ['on' => 'fridzema'])
-		{{ logMessage("🚚  Running composer...") }}
+		{{ taskLog("Running composer...", "📦") }}
 		cd {{ $path }}/{{$repositoryName}};
-		composer install --prefer-dist --no-scripts --no-dev -o;
+		composer install --prefer-dist --no-scripts --no-dev -o -q;
 	@endtask
 
   @task('optimize', ['on' => 'fridzema'])
-		{{ logMessage("🏎  Speed things up a bit up...") }}
+		{{ taskLog("Speed things up a bit up...", "🏎") }}
     cd {{ $path }}/{{$repositoryName}};
     php artisan clear-compiled -q;
 		php artisan optimize -q;
@@ -70,15 +69,20 @@
   @endtask
 
   @task('migrate_seed', ['on' => 'fridzema'])
-  	{{ logMessage("⚙️  Build and fill the database...") }}
+  	{{ taskLog("Build and fill the database...", "🛠") }}
     cd {{ $path }}/{{$repositoryName}};
 		php artisan migrate:refresh --seed --force -q;
   @endtask
 
   @task('restart_services', ['on' => 'fridzema'])
-  	{{ logMessage("🛁  Keep it fresh...") }}
+  	{{ taskLog("Keep it fresh...", "🛁") }}
   	service mysql --full-restart;
     service nginx --full-restart;
     service php7.0-fpm --full-restart;
    	service redis-server --full-restart;
+  @endtask
+
+  @task('congratulations', ['on' => 'fridzema'])
+  	{{ taskLog("🙏🍾🍻🎂 DEPLOYED SUCCESFULLY 🎂🍻🍾🙏") }}
+  	exit;
   @endtask
