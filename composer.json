@@ -8,7 +8,7 @@
         "php": ">=5.6.4",
         "appstract/laravel-opcache": "^1.1",
         "barryvdh/laravel-debugbar": "^2.3",
-        "graham-campbell/htmlmin": "^4.5",
+        "htmlmin/htmlmin": "^4.5",
         "intervention/image": "^2.4",
         "intervention/imagecache": "^2.3",
         "laravel/dusk": "^1.0",
