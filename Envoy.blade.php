@@ -1,4 +1,4 @@
-@servers(['localhost' => '127.0.0.1', 'fridzema' => 'root@188.226.137.26'])
+@servers(['localhost' => '127.0.0.1', 'fridzema' => 'root@104.236.23.198'])
   @setup
       $path = "/var/www/html";
       require __DIR__.'/vendor/autoload.php';
@@ -41,8 +41,9 @@
 
   @task('fix_permissions', ['on' => 'fridzema'])
   	{{ taskLog("Fixing file permissions...", "🔓") }}
-    chown -R :www-data  {{ $path }}/{{$repositoryName}};
-		chmod -R 755 {{ $path }}/{{$repositoryName}}/storage;
+    cd {{ $path }}/{{$repositoryName}};
+    sudo chmod -R o+w storage/;
+		sudo chmod -R 775 storage/;
   @endtask
 
   @task('copy_env', ['on' => 'fridzema'])
@@ -54,7 +55,7 @@
 	@task('composer', ['on' => 'fridzema'])
 		{{ taskLog("Running composer...", "📦") }}
 		cd {{ $path }}/{{$repositoryName}};
-		composer install --prefer-dist --no-scripts --no-dev -o -q;
+		composer install --prefer-dist --no-scripts --no-plugins --no-dev -o -q;
 	@endtask
 
   @task('optimize', ['on' => 'fridzema'])
