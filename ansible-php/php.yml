@@ -1,0 +1,109 @@
+---
+- hosts: php
+
+  tasks:
+
+  - name: install packages
+    apt: name={{ item }} update_cache=yes state=latest
+    with_items:
+      - git
+      - mcrypt
+      - nginx
+      - letsencrypt
+      - php7.0
+      - php7.0-cli
+      - php7.0-common
+      - php7.0-fpm
+      - php7.0-mbstring
+      - php7.0-gd
+      - php7.0-intl
+      - php7.0-mcrypt
+      - php7.0-curl
+      - php7.0-xml
+      - php7.0-mysql
+      - php7.0-zip
+      - php7.0-opcache
+      - php-imagick
+      - redis-server
+
+  - name: download composer
+    get_url:
+      url: https://getcomposer.org/installer
+      dest: /tmp/installer
+    tags: composer
+
+  - name: install composer
+    shell: cat /tmp/installer | php -- --install-dir=/usr/local/bin
+    args:
+      creates: /usr/local/bin/composer
+    tags: composer
+
+  - name: rename composer.phar to composer
+    shell: mv /usr/local/bin/composer.phar /usr/local/bin/composer
+    args:
+      creates: /usr/local/bin/composer
+    tags: composer
+
+  - name: make composer executable
+    file:
+      path: /usr/local/bin/composer
+      mode: a+x
+      state: file
+    tags: composer
+
+  - name: Configure nginx
+    template: src=nginx.conf dest=/etc/nginx/sites-available/default
+    notify:
+      - Restart nginx
+
+  - name: Restart nginx
+    service: name=nginx state=restarted
+
+  - name: Enable UFW
+    ufw: direction=incoming policy=deny state=enabled
+
+  - name: UFW limit SSH
+    ufw: rule=limit port=ssh
+
+  - name: UFW open HTTP
+    ufw: rule=allow port=http
+
+  - name: Refresh apt cache
+    apt:
+      update_cache: yes
+
+  - name: Update all packages
+    apt:
+      upgrade: dist
+
+  - name: Rebooting server
+    shell: >
+      sleep 2 &&
+      /sbin/shutdown -r now "Ansible system package upgraded"
+    async: 1
+    poll: 0
+    ignore_errors: true
+
+  - name: Wait for host to boot
+    become: false
+    local_action: wait_for
+    args:
+      host: "{{ inventory_hostname }}"
+      port: 22
+      state: started
+      delay: 30
+      timeout: 200
+
+  - name: Sanity check
+    shell: ps -ef | grep sshd | grep `whoami` | awk '{print \"kill -9\", $2}' | sh
+    async: 1
+    poll: 0
+    ignore_errors: true
+
+  - name: Remove useless packages from the cache
+    apt:
+      autoclean: yes
+
+  - name: Remove dependencies that are no longer required
+    apt:
+      autoremove: yes
