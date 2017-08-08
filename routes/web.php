@@ -11,13 +11,13 @@
 |
 */
 
-  Route::group(['middleware' => ['frontend']], function () {
+  Route::group(['middleware' => ['web']], function () {
     Route::get('/', 'SiteController@index');
     Route::get('photo/{photoId}', 'SiteController@showPhoto')->name('photo');
 		Route::get('photo_feed', 'PhotosController@getPhotoFeed');
   });
 
-  Route::group(['prefix' => 'admin', 'middleware' => ['web']], function () {
+  Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
   	Auth::routes();
 
 		Route::group(['middleware' => ['auth']], function () {
