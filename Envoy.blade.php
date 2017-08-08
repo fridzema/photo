@@ -1,4 +1,4 @@
-@servers(['localhost' => '127.0.0.1', 'fridzema' => 'root@104.236.23.198'])
+@servers(['localhost' => '127.0.0.1', 'fridzema' => 'root@188.226.137.26'])
   @setup
       $path = "/var/www/html";
       require __DIR__.'/vendor/autoload.php';
@@ -41,9 +41,9 @@
 
   @task('fix_permissions', ['on' => 'fridzema'])
   	{{ taskLog("Fixing file permissions...", "🔓") }}
-    cd {{ $path }}/{{$repositoryName}};
-    sudo chmod -R o+w storage/;
-		sudo chmod -R 775 storage/;
+    cd {{ $path }};
+    sudo chgrp -R www-data {{$repositoryName}};
+    sudo chmod -R g+w {{$repositoryName}}/storage;
   @endtask
 
   @task('copy_env', ['on' => 'fridzema'])

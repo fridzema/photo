@@ -1,2 +1,2 @@
 [php]
-104.236.23.198 ansible_ssh_user=root
+104.236.54.22 ansible_ssh_user=demo

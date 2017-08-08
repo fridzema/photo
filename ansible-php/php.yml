@@ -1,6 +1,6 @@
 ---
 - hosts: php
-
+  become_method: sudo
   tasks:
 
   - name: install packages

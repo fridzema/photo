@@ -16,7 +16,7 @@
   "dependencies": {
     "axios": "^0.16.1",
     "dropzone": "^5.1.1",
-    "jquery": "^3.1.1",
+    "jquery": "^3.2.1",
     "mustache": "^2.3.0",
     "normalize.css": "^7.0.0",
     "velocity-animate": "^1.5.0"
