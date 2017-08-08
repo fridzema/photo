@@ -14,8 +14,8 @@ new Dropzone("#dropzone", {
     },
     url: '/admin/photos',
     autoProcessQueue: true,
-    maxFilesize: 1000,
-    parallelUploads: 10,
+    maxFilesize: 100,
+    parallelUploads: 1,
     uploadMultiple: true,
     queuecomplete: function(){
     	InitiatePhotoGrid();

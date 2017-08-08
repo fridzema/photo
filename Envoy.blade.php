@@ -44,6 +44,7 @@
     cd {{ $path }};
     sudo chgrp -R www-data {{$repositoryName}};
     sudo chmod -R g+w {{$repositoryName}}/storage;
+    sudo chmod -R g+w {{$repositoryName}}/public;
   @endtask
 
   @task('copy_env', ['on' => 'fridzema'])
