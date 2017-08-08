@@ -178,7 +178,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         GrahamCampbell\HTMLMin\HTMLMinServiceProvider::class,
         Appstract\Opcache\OpcacheServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
         Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
         Appstract\Opcache\OpcacheServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
