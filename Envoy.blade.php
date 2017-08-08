@@ -22,7 +22,7 @@
 
   	{{ taskLog("Cloning the repository ".$repositoryUser."/".$repositoryName."...", "⛓") }}
     cd {{ $path }};
-    git clone --depth 1 https://github.com/{{$repositoryUser}}/{{$repositoryName}}.git --quiet;
+    git clone https://github.com/{{$repositoryUser}}/{{$repositoryName}}.git --quiet;
 
   	{{ taskLog("Fixing file permissions...", "🔓") }}
     cd {{ $path }};
@@ -64,7 +64,7 @@
   @task('update', ['on' => 'fridzema'])
   	{{ taskLog("Pulling the repository ".$repositoryUser."/".$repositoryName."...", "⛓") }}
     cd {{ $path }}/{{$repositoryName}};
-    git pull --unshallow --quiet;
+    git pull;
 
   	{{ taskLog("Copy the env production file...", "⚙️") }}
     cd {{ $path }}/{{$repositoryName}};
@@ -72,7 +72,7 @@
 
 		{{ taskLog("Running composer...", "📦") }}
 		cd {{ $path }}/{{$repositoryName}};
-		composer update;
+		composer install --prefer-dist --no-scripts --no-plugins --no-dev -o -q;
 
 		{{ taskLog("Speed things up a bit up...", "🏎") }}
     cd {{ $path }}/{{$repositoryName}};
