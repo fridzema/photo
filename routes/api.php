@@ -1,7 +1,4 @@
 <?php
-
-use Illuminate\Http\Request;
-use App\Photo;
 /*
 |--------------------------------------------------------------------------
 | API Routes

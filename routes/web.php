@@ -11,17 +11,17 @@
 |
 */
 
-  Route::group(['middleware' => ['web']], function () {
+  Route::group(['middleware' => ['frontend']], function () {
     Route::get('/', 'SiteController@index');
     Route::get('photo/{photoId}', 'SiteController@showPhoto')->name('photo');
-		Route::get('photo_feed', 'Admin\PhotosController@getPhotoFeed');
-
-		Route::group(['prefix' => 'admin'], function(){
-			Auth::routes();
-		});
-
-    Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
-    	Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-  		Route::resource('photos', 'PhotosController');
-  	});
+		Route::get('photo_feed', 'PhotosController@getPhotoFeed');
   });
+
+  Route::group(['prefix' => 'admin', 'middleware' => ['web']], function () {
+  	Auth::routes();
+
+		Route::group(['middleware' => ['auth']], function () {
+	  	Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+			Route::resource('photos', 'PhotosController');
+		});
+	});

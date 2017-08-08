@@ -181,7 +181,8 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
         Appstract\Opcache\OpcacheServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class
+        Intervention\Image\ImageServiceProvider::class,
+				Spatie\ResponseCache\ResponseCacheServiceProvider::class
     ],
 
     /*
@@ -232,7 +233,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'HTMLMin' => GrahamCampbell\HTMLMin\Facades\HTMLMin::class,
         'Setting' => anlutro\LaravelSettings\Facade::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facades\Image::class,
+        'ResponseCache' => Spatie\ResponseCache\ResponseCacheFacade::class
     ],
 
 ];
