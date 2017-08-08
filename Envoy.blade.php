@@ -82,6 +82,8 @@
     php artisan view:clear -q;
     php artisan route:cache -q;
     php artisan config:cache -q;
+    php artisan responsecache:flush -q;
+    php artisan opcache:optimize -q;
 
   	{{ taskLog("Keep it fresh...", "🛁") }}
   	service mysql --full-restart;
