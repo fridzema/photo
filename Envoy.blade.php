@@ -61,3 +61,34 @@
   	{{ taskLog("🙏🍾🍻🎂 DEPLOYED SUCCESFULLY 🎂🍻🍾🙏") }}
   @endtask
 
+  @task('update', ['on' => 'fridzema'])
+  	{{ taskLog("Pulling the repository ".$repositoryUser."/".$repositoryName."...", "⛓") }}
+    cd {{ $path }}/{{$repositoryName}};
+    git pull --unshallow --quiet;
+
+  	{{ taskLog("Copy the env production file...", "⚙️") }}
+    cd {{ $path }}/{{$repositoryName}};
+    cp .env.production .env;
+
+		{{ taskLog("Running composer...", "📦") }}
+		cd {{ $path }}/{{$repositoryName}};
+		composer update;
+
+		{{ taskLog("Speed things up a bit up...", "🏎") }}
+    cd {{ $path }}/{{$repositoryName}};
+    php artisan clear-compiled -q;
+		php artisan optimize -q;
+    php artisan cache:clear -q;
+    php artisan view:clear -q;
+    php artisan route:cache -q;
+    php artisan config:cache -q;
+
+  	{{ taskLog("Keep it fresh...", "🛁") }}
+  	service mysql --full-restart;
+    service nginx --full-restart;
+    service php7.0-fpm --full-restart;
+   	service redis-server --full-restart;
+
+  	{{ taskLog("🙏🍾🍻🎂 DEPLOYED SUCCESFULLY 🎂🍻🍾🙏") }}
+  @endtask
+
