@@ -45,6 +45,7 @@ body {
     -moz-animation: fadein .8s; /* Firefox */
     -webkit-animation: fadein .8s; /* Safari and Chrome */
     -o-animation: fadein .8s; /* Opera */
+
         a {
           font-size: 16px;
           overflow: hidden;
@@ -58,11 +59,10 @@ body {
             overflow: hidden;
 
             img {
-              border: none;
-              max-width: 100%;
-              height: auto;
               display: block;
-              background: #ccc;
+              height: auto;
+              max-width: 100%;
+              border: none;
               transition: transform .2s ease-in-out;
 
               &:hover {
@@ -106,13 +106,3 @@ body {
     }
   }
 }
-
-
-
-
-// #photo-detail {
-
-// 	img {
-
-// 	}
-// }
