@@ -63,6 +63,7 @@
 
   @task('update', ['on' => 'fridzema'])
   	{{ taskLog("Pulling the repository ".$repositoryUser."/".$repositoryName."...", "⛓") }}
+    cd {{ $path }}/{{$repositoryName}};
     git pull;
 
   	{{ taskLog("Copy the env production file...", "⚙️") }}
