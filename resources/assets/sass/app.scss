@@ -106,67 +106,64 @@
 //     }
 //   }
 // }
+html {
+		body {
+	  width: 100%;
+	  max-width: 1800px;
+	  margin: 30px auto;
+	  background-color: #e0e0e0;
+	  font-family: Arial, sans-serif;
+		// Removes standard image margin
+		font-size: 0;
 
-body {
-  width: 100%;
-  max-width: 1200px;
-  margin: 30px auto;
-  background-color: #e0e0e0;
-  font-family: Arial, sans-serif;
-	// Removes standard image margin
-	font-size: 0;
+	  h1 {
+			text-align: center;
+			padding-bottom: 5px;
+	  	a {
+	  		color: #000;
+	  		font-size: 10px;
+	  		text-decoration: none;
+	  	}
+	  }
 
-  h1 {
-		text-align: center;
-		padding-bottom: 5px;
-  	a {
-  		color: #000;
-  		font-size: 10px;
-  		text-decoration: none;
+	  a {
+			font-size: 16px;
+			display: inline-block;
+			margin: 0;
+			padding: 0;
+			border: none;
+			transition: transform .2s ease-in-out;
+
+			img {
+		    display: block;
+		    height: 100%;
+		    max-width: 100%;
+		    border: none;
+	  		margin: 0;
+				padding: 0;
+
+			}
+
+			&:hover {
+				transform: scale(1.05);
+				-webkit-box-shadow: 0 2px 15px 1px rgba(0, 0, 0, 0.5);
+				-moz-box-shadow: 0 2px 15px 1px rgba(0, 0, 0, 0.5);
+				box-shadow: 0 2px 15px 1px rgba(0, 0, 0, 0.5);
+			}
+	  }
+		}
+
+  @media screen and (max-width: 1214px) {
+  	body {
+			max-width: 600px;
   	}
   }
 
-  a {
-		font-size: 16px;
-		display: inline-block;
-		margin: 0;
-		padding: 0;
-		border: none;
-		transition: transform .2s ease-in-out;
-
-		img {
-	    display: block;
-	    height: 100%;
-	    max-width: 100%;
-	    border: none;
-  		margin: 0;
-			padding: 0;
-
-		}
-
-		&:hover {
-			transform: scale(1.05);
-			-webkit-box-shadow: 0 2px 15px 1px rgba(0, 0, 0, 0.5);
-			-moz-box-shadow: 0 2px 15px 1px rgba(0, 0, 0, 0.5);
-			box-shadow: 0 2px 15px 1px rgba(0, 0, 0, 0.5);
-		}
-  }
-
-  @media screen and (max-width: 1214px) {
-		max-width: 600px;
-		// a {
-		// 	img {
-		// 		width: 100%;
-		// 	}
-		// }
-  }
-
-  @media screen and (min-width: 1814px) {
-		max-width: 1800;
-		// a {
-		// 	img {
-		// 		width: 100%;
-		// 	}
-		// }
+  @media screen and (min-width: 1215px) {
+  	body {
+			max-width: 1200;
+  	}
   }
 }
+
+
