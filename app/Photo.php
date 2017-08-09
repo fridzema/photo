@@ -24,12 +24,12 @@ class Photo extends Model implements HasMediaConversions
     public function registerMediaConversions()
     {
 			$this->addMediaConversion('medium')
-			->width(280)
+			->width(600)
 			->optimize()
 			->nonQueued();
 
 			$this->addMediaConversion('large')
-			->width(1140)
+			->width(1200)
 			->optimize()
 			->queued();
     }

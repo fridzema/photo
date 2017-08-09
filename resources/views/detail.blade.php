@@ -1,7 +1,5 @@
 @extends('layouts.layout')
 
 @section('content')
-	<section id="photo-detail">
-		<img src="https://static.fridzema.com{{$photo->getMedia('images')->first()->getUrl('large')}}"  width="1140" height="759" />
-	</section>
+<img src="https://static.fridzema.com{{$photo->getMedia('images')->first()->getUrl('large')}}"  width="1200"  />1
 @endsection

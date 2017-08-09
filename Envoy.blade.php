@@ -63,19 +63,15 @@
 
   @task('update', ['on' => 'fridzema'])
   	{{ taskLog("Pulling the repository ".$repositoryUser."/".$repositoryName."...", "⛓") }}
-    cd {{ $path }}/{{$repositoryName}};
     git pull;
 
   	{{ taskLog("Copy the env production file...", "⚙️") }}
-    cd {{ $path }}/{{$repositoryName}};
     cp .env.production .env;
 
 		{{ taskLog("Running composer...", "📦") }}
-		cd {{ $path }}/{{$repositoryName}};
 		composer install --prefer-dist --no-scripts --no-plugins --no-dev -o -q;
 
 		{{ taskLog("Speed things up a bit up...", "🏎") }}
-    cd {{ $path }}/{{$repositoryName}};
     php artisan clear-compiled -q;
 		php artisan optimize -q;
     php artisan cache:clear -q;
@@ -86,6 +82,7 @@
     php artisan opcache:optimize -q;
 
   	{{ taskLog("Keep it fresh...", "🛁") }}
+  	php artisan medialibrary:regenerate
   	service mysql --full-restart;
     service nginx --full-restart;
     service php7.0-fpm --full-restart;
