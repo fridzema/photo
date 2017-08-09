@@ -27,8 +27,7 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \JacobBennett\Http2ServerPush\Middleware\AddHttp2ServerPush::class,
-            \Spatie\ResponseCache\Middlewares\CacheResponse::class,
+            \Spatie\ResponseCache\Middlewares\CacheResponse::class
         ],
         'admin' => [
             \App\Http\Middleware\EncryptCookies::class,
