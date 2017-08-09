@@ -9,12 +9,7 @@
       <style>{!!file_get_contents('css/app.css')!!}</style>
     </head>
     <body>
-      <article>
-      	<h1>Robert Fridzema</h1>
-        @yield('content')
-      </article>
-      <footer>
-        <a href="mailto:fridzema@gmail.com" rel="author">Robert Fridzema</a>
-      </footer>
+    	<h1><a href="mailto:fridzema@gmail.com" rel="author">Robert Fridzema</a></h1>
+      @yield('content')
     </body>
 </html>
