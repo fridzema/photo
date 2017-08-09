@@ -84,7 +84,6 @@
     php artisan opcache:optimize -q;
 
   	{{ taskLog("Keep it fresh...", "🛁") }}
-  	php artisan medialibrary:regenerate --force;
   	service mysql --full-restart;
     service nginx --full-restart;
     service php7.0-fpm --full-restart;
@@ -92,4 +91,4 @@
 
   	{{ taskLog("🙏🍾🍻🎂 DEPLOYED SUCCESFULLY 🎂🍻🍾🙏") }}
   @endtask
-
+{{-- php artisan medialibrary:regenerate --force; --}}

@@ -153,11 +153,11 @@ body {
   }
 
   @media screen and (max-width: 1214px) {
-
-		a {
-			img {
-				width: 100%;
-			}
-		}
+	max-width: 600px;
+		// a {
+		// 	img {
+		// 		width: 100%;
+		// 	}
+		// }
   }
 }

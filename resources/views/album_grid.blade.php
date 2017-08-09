@@ -2,6 +2,6 @@
 
 @section('content')
 @foreach($photos as $photo)
-	<a href="{{route('photo', $photo->id)}}"><img src="https://static.fridzema.com{{ $photo->getMedia('images')->first()->getUrl('large') }}" width="600" /></a>
+	<a href="{{route('photo', $photo->id)}}"><img src="https://static.fridzema.com{{ $photo->getMedia('images')->first()->getUrl('medium') }}" width="600" height="400" /></a>
 @endforeach
 @endsection
