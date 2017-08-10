@@ -156,6 +156,13 @@ html {
   @media screen and (max-width: 1214px) {
   	body {
 			max-width: 600px;
+
+			a {
+
+				img {
+					width: 100%;
+				}
+			}
   	}
   }
 
