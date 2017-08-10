@@ -2,6 +2,7 @@
 <html>
     <head>
       <title>Robert Fridzema - Rotterdam</title>
+      <link rel="shortcut icon" href="https://static.fridzema.com/favicon.ico" type="image/x-icon" />
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="description" content="Robert Fridzema, Photography Rotterdam">
       <meta name="keywords" content="robert, fridzema, rotterdam, photo, photgraph, camera">
