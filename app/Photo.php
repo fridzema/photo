@@ -3,13 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\HasMedia\Interfaces\HasMediaConversions;
 
 class Photo extends Model implements HasMediaConversions
 {
-	use HasMediaTrait;
+    use HasMediaTrait;
 
     /**
      * The attributes that should be cast to native types.
@@ -18,20 +17,20 @@ class Photo extends Model implements HasMediaConversions
      */
     protected $casts = [
         'exif' => 'array',
-        'iptc' => 'array'
+        'iptc' => 'array',
     ];
 
     public function registerMediaConversions()
     {
-			$this->addMediaConversion('medium')
-			->width(600)
-			->optimize()
-			->nonQueued();
+        $this->addMediaConversion('medium')
+            ->width(600)
+            ->optimize()
+            ->nonQueued();
 
-			$this->addMediaConversion('large')
-			->width(1200)
-			->optimize()
-			->queued();
+        $this->addMediaConversion('large')
+            ->width(1800)
+            ->optimize()
+            ->queued();
     }
 
 }
