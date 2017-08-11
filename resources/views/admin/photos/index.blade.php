@@ -5,12 +5,9 @@
 @endsection
 
 @section('content')
-
 <form id="dropzone" class="dropzone">
   <div class="dz-message" data-dz-message><span>Upload</span></div>
 </form>
 
-	<div id="photos">
-
-	</div>
+<div id="photos"></div>
 @endsection
