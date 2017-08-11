@@ -12,16 +12,16 @@
 */
 
   Route::group(['middleware' => ['web']], function () {
-    Route::get('/', 'SiteController@index');
-    Route::get('photo/{photoId}', 'SiteController@showPhoto')->name('photo');
-		Route::get('photo_feed', 'PhotosController@getPhotoFeed');
+      Route::get('/', 'SiteController@index');
+      Route::get('photo/{photoId}', 'SiteController@showPhoto')->name('photo');
+      Route::get('photo_feed', 'PhotosController@getPhotoFeed');
   });
 
   Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
-  	Auth::routes();
+      Auth::routes();
 
-		Route::group(['middleware' => ['auth']], function () {
-	  	Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-			Route::resource('photos', 'PhotosController');
-		});
-	});
+      Route::group(['middleware' => ['auth']], function () {
+          Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+          Route::resource('photos', 'PhotosController');
+      });
+  });

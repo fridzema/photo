@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-
-use  ResponseCache;
-
-use App\Photo;
-use App\Album;
-
 use Image;
+
+use App\Album;
+use App\Photo;
+use Illuminate\Http\Request;
 
 class PhotosController extends Controller
 {
@@ -21,7 +17,8 @@ class PhotosController extends Controller
      */
     public function index($album_id)
     {
-				$album = Album::find($album_id);
+        $album = Album::find($album_id);
+
         return response()->view('admin.photos.show', ['album' => $album]);
     }
 
@@ -32,10 +29,10 @@ class PhotosController extends Controller
      */
     public function create($albumId)
     {
-    		$album = Album::find($albumId);
+        $album = Album::find($albumId);
 
         return response()->view('admin.photos.create', [
-        	'album' => $album
+            'album' => $album,
         ]);
     }
 
@@ -47,40 +44,38 @@ class PhotosController extends Controller
      */
     public function store(Request $request)
     {
-    	$photo = [];
+        $photo = [];
 
-			foreach ($request->file('file') as $requestFile) {
-				$intervention_image = Image::make($requestFile->getRealPath());
-  			$exif_data = [];
-  			$iptc_data = [];
-  			$exif_data = ($intervention_image->exif()) ? json_encode($intervention_image->exif()) : null;
-  			$iptc_data = ($intervention_image->iptc()) ? json_encode($intervention_image->iptc()) : null;
+        foreach ($request->file('file') as $requestFile) {
+            $intervention_image = Image::make($requestFile->getRealPath());
+            $exif_data = [];
+            $iptc_data = [];
+            $exif_data = ($intervention_image->exif()) ? json_encode($intervention_image->exif()) : null;
+            $iptc_data = ($intervention_image->iptc()) ? json_encode($intervention_image->iptc()) : null;
 
-				$photo = new Photo();
-				$photo->filename = $requestFile->getClientOriginalName();
-				$photo->exif = $exif_data;
-				$photo->iptc = $iptc_data;
-				$photo->addMedia($requestFile)->toMediaCollection('images');
-				$photo->save();
-			}
+            $photo = new Photo();
+            $photo->filename = $requestFile->getClientOriginalName();
+            $photo->exif = $exif_data;
+            $photo->iptc = $iptc_data;
+            $photo->addMedia($requestFile)->toMediaCollection('images');
+            $photo->save();
+        }
 
-   		return response()->json([true]);
+        return response()->json([true]);
     }
-
 
     public function getPhotoFeed()
     {
-    	$response = [];
-    	$photos = Photo::all();
+        $response = [];
+        $photos = Photo::all();
 
-    	foreach($photos as $photo)
-    	{
-    		$response['photos'][] = [
-    			'url' => $photo->getMedia('images')->first()->getUrl('medium')
-    		];
-    	};
+        foreach ($photos as $photo) {
+            $response['photos'][] = [
+                'url' => $photo->getMedia('images')->first()->getUrl('medium'),
+            ];
+        }
 
-    	return response()->json($response);
+        return response()->json($response);
     }
 
     /**

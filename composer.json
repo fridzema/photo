@@ -14,11 +14,12 @@
         "spatie/laravel-responsecache": "^3.2"
     },
     "require-dev": {
+        "arubacao/php-cs-fixer-config": "^0.0.2",
+        "barryvdh/laravel-debugbar": "^2.3",
         "fzaninotto/faker": "~1.4",
-        "mockery/mockery": "0.9.*",
-        "phpunit/phpunit": "~5.0",
         "laravel/dusk": "^1.0",
-        "barryvdh/laravel-debugbar": "^2.3"
+        "mockery/mockery": "0.9.*",
+        "phpunit/phpunit": "~5.0"
     },
     "autoload": {
         "classmap": [
@@ -47,7 +48,8 @@
         "post-update-cmd": [
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize"
-        ]
+        ],
+        "cs": "vendor/bin/php-cs-fixer fix ./ --config=vendor/arubacao/php-cs-fixer-config/laravel.php_cs -vv"
     },
     "config": {
         "preferred-install": "dist",

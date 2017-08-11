@@ -181,7 +181,7 @@ return [
         Spatie\MediaLibrary\MediaLibraryServiceProvider::class,
         Appstract\Opcache\OpcacheServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-				Spatie\ResponseCache\ResponseCacheServiceProvider::class
+                Spatie\ResponseCache\ResponseCacheServiceProvider::class,
     ],
 
     /*
@@ -231,7 +231,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'HTMLMin' => GrahamCampbell\HTMLMin\Facades\HTMLMin::class,
-        'ResponseCache' => Spatie\ResponseCache\ResponseCacheFacade::class
+        'ResponseCache' => Spatie\ResponseCache\ResponseCacheFacade::class,
     ],
 
 ];

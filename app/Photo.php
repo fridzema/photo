@@ -32,5 +32,4 @@ class Photo extends Model implements HasMediaConversions
             ->optimize()
             ->queued();
     }
-
 }
