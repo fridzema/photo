@@ -10,7 +10,7 @@ var photoPlaceholder = document.getElementById("photos");
 
 new Dropzone("#dropzone", {
     params: {
-        _token: window.Laravel.csrfToken,
+      _token: window.Laravel.csrfToken,
     },
     url: '/admin/photos',
     autoProcessQueue: true,
