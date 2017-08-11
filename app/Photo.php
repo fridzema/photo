@@ -22,6 +22,12 @@ class Photo extends Model implements HasMediaConversions
 
     public function registerMediaConversions()
     {
+        $this->addMediaConversion('small')
+            ->width(300)
+            ->quality(75)
+            ->optimize()
+            ->nonQueued();
+
         $this->addMediaConversion('medium')
             ->width(600)
             ->optimize()
@@ -30,6 +36,6 @@ class Photo extends Model implements HasMediaConversions
         $this->addMediaConversion('large')
             ->width(1800)
             ->optimize()
-            ->queued();
+            ->nonQueued();
     }
 }

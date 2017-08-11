@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "30e754c2dae2b51c65520891e23db178",
+    "content-hash": "321dd8b465d9acaa940161a294d45d68",
     "packages": [
         {
             "name": "appstract/laravel-opcache",

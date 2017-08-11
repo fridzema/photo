@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Image;
-
-use App\Album;
 use App\Photo;
 use Illuminate\Http\Request;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class PhotosController extends Controller
 {
@@ -15,11 +13,11 @@ class PhotosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($album_id)
+    public function index()
     {
-        $album = Album::find($album_id);
+        $photos = Photo::all();
 
-        return response()->view('admin.photos.show', ['album' => $album]);
+        return response()->view('admin.photos.index', ['photos' => $photos]);
     }
 
     /**
@@ -27,13 +25,9 @@ class PhotosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($albumId)
+    public function create()
     {
-        $album = Album::find($albumId);
-
-        return response()->view('admin.photos.create', [
-            'album' => $album,
-        ]);
+        return response()->view('admin.photos.create');
     }
 
     /**
@@ -44,12 +38,10 @@ class PhotosController extends Controller
      */
     public function store(Request $request)
     {
-        $photo = [];
-
         foreach ($request->file('file') as $requestFile) {
-            $intervention_image = Image::make($requestFile->getRealPath());
             $exif_data = [];
             $iptc_data = [];
+            $intervention_image = Image::make($requestFile->getRealPath());
             $exif_data = ($intervention_image->exif()) ? json_encode($intervention_image->exif()) : null;
             $iptc_data = ($intervention_image->iptc()) ? json_encode($intervention_image->iptc()) : null;
 
@@ -61,21 +53,7 @@ class PhotosController extends Controller
             $photo->save();
         }
 
-        return response()->json([true]);
-    }
-
-    public function getPhotoFeed()
-    {
-        $response = [];
-        $photos = Photo::all();
-
-        foreach ($photos as $photo) {
-            $response['photos'][] = [
-                'url' => $photo->getMedia('images')->first()->getUrl('medium'),
-            ];
-        }
-
-        return response()->json($response);
+        return response()->json(['success' => true]);
     }
 
     /**
